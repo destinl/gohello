@@ -1,20 +1,13 @@
 package main
 
-import (
-	"fmt"
-	"net/http"
+// func main() {
+// 	// fmt.Println("Hello, world!")
+// 	r := mux.NewRouter()
+// 	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+// 		fmt.Fprintf(w, "Welcome to my website!")
+// 	})
 
-	"github.com/gorilla/mux"
-)
-
-func main() {
-	// fmt.Println("Hello, world!")
-	r := mux.NewRouter()
-	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Welcome to my website!")
-	})
-
-	http.Handle("/", r)
-	fmt.Println("Server started on port 8080")
-	http.ListenAndServe(":8080", nil)
-}
+// 	http.Handle("/", r)
+// 	fmt.Println("Server started on port 8080")
+// 	http.ListenAndServe(":8080", nil)
+// }
