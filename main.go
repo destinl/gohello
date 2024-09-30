@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"net"
 	"net/http"
 	"time"
 )
@@ -15,27 +14,18 @@ var tr *http.Transport
 func init() {
 	tr = &http.Transport{
 		MaxIdleConns: 100,
-		Dial: func(netw, addr string) (net.Conn, error) {
-			conn, err := net.DialTimeout(netw, addr, time.Second*2) //设置建立连接超时
-			if err != nil {
-				return nil, err
-			}
-			err = conn.SetDeadline(time.Now().Add(time.Second * 3)) //设置发送接受数据超时
-			if err != nil {
-				return nil, err
-			}
-			return conn, nil
-		},
-	}
-}
-
-func main() {
-	for {
-		_, err := Get("http://www.baidu.com/")
-		if err != nil {
-			fmt.Println(err)
-			break
-		}
+		// 下面的代码被干掉了
+		//Dial: func(netw, addr string) (net.Conn, error) {
+		//	conn, err := net.DialTimeout(netw, addr, time.Second*2) //设置建立连接超时
+		//	if err != nil {
+		//		return nil, err
+		//	}
+		//	err = conn.SetDeadline(time.Now().Add(time.Second * 3)) //设置发送接受数据超时
+		//	if err != nil {
+		//		return nil, err
+		//	}
+		//	return conn, nil
+		//},
 	}
 }
 
@@ -51,6 +41,7 @@ func Get(url string) ([]byte, error) {
 
 	client := &http.Client{
 		Transport: tr,
+		Timeout:   3 * time.Second, // 超时加在这里，是每次调用的超时
 	}
 	res, err := client.Do(req)
 	if res != nil {
@@ -64,4 +55,14 @@ func Get(url string) ([]byte, error) {
 		return nil, err
 	}
 	return resBody, nil
+}
+
+func main() {
+	for {
+		_, err := Get("http://www.baidu.com/")
+		if err != nil {
+			fmt.Println(err)
+			break
+		}
+	}
 }
