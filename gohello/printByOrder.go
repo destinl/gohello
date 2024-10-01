@@ -1,11 +1,11 @@
-package main
+package gohello
 
 import (
 	"fmt"
 	"sync"
 )
 
-func main() {
+func main_printByOrder() {
 	letter, number := make(chan bool), make(chan bool)
 	wait := sync.WaitGroup{}
 

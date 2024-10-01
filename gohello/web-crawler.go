@@ -1,4 +1,4 @@
-package main
+package gohello
 
 import (
 	"fmt"
@@ -58,9 +58,9 @@ func crawl(url string, depth int, fetcher Fetcher, visited map[string]bool, wg *
 	}
 }
 
-// func main() {
-// 	Crawl("https://golang.org/", 4, fetcher)
-// }
+func main_web_crawler() {
+	Crawl("https://golang.org/", 4, fetcher)
+}
 
 // fakeFetcher 是待填充结果的 Fetcher。
 type fakeFetcher map[string]*fakeResult

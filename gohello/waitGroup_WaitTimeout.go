@@ -1,4 +1,4 @@
-package main
+package gohello
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func main() {
+func main_WaitTimeOut() {
 	wg := sync.WaitGroup{}
 	c := make(chan struct{})
 	for i := 0; i < 10; i++ {

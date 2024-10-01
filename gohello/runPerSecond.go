@@ -1,11 +1,11 @@
-package main
+package gohello
 
 import (
 	"fmt"
 	"time"
 )
 
-func main() {
+func main_runPerSecond() {
 	go func() {
 		// 1 在这里需要你写算法
 		// 2 要求每秒钟调用一次proc函数

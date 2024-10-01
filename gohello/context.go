@@ -1,4 +1,4 @@
-package main
+package gohello
 
 import (
 	"context"
@@ -23,7 +23,7 @@ func task(name string, ctx context.Context, wg *sync.WaitGroup) {
 	}
 }
 
-func main() {
+func main_context() {
 
 	ctxA, cancelA := context.WithCancel(context.Background())
 

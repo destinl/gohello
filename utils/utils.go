@@ -1,8 +1,10 @@
-package main
+package utils
 
 import (
 	"fmt"
+	"os"
 	"strings"
+	"time"
 )
 
 func isUniqString3(s string) bool {
@@ -52,7 +54,18 @@ func isRegroup(s1, s2 string) bool {
 	return true
 }
 
-func main() {
+func Foo() {
+	fmt.Println("打印1")
+	defer fmt.Println("打印2")
+	// runtime.Goexit() // 加入这行
+	os.Exit(0)
+	fmt.Println("打印3")
+}
+
+func main_utils() {
 	// fmt.Println(isRegroup("你好", "世界"))
-	fmt.Println(isUniqString3("abc"))
+	// fmt.Println(isUniqString3("abc"))
+	go Foo()
+	fmt.Println("打印4")
+	time.Sleep(1000 * time.Second)
 }

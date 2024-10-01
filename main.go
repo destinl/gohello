@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"gohello/utils"
 	"io/ioutil"
 	"net/http"
 	"time"
@@ -58,11 +59,15 @@ func Get(url string) ([]byte, error) {
 }
 
 func main() {
-	for {
-		_, err := Get("http://www.baidu.com/")
-		if err != nil {
-			fmt.Println(err)
-			break
-		}
-	}
+	// for {
+	// 	_, err := Get("http://www.baidu.com/")
+	// 	if err != nil {
+	// 		fmt.Println(err)
+	// 		break
+	// 	}
+	// }
+
+	go utils.Foo()
+	fmt.Println("打印4")
+	time.Sleep(1000 * time.Second)
 }

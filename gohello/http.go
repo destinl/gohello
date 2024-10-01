@@ -1,18 +1,19 @@
-package main
+package gohello
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"strings"
 )
 
-// func main() {
-// 	http.HandleFunc("/", hello)
-// 	err := http.ListenAndServe(":8080", nil)
-// 	if err != nil {
-// 		log.Fatal("ListenAndServe: ", err)
-// 	}
-// }
+func main_http() {
+	http.HandleFunc("/", hello)
+	err := http.ListenAndServe(":8080", nil)
+	if err != nil {
+		log.Fatal("ListenAndServe: ", err)
+	}
+}
 
 func hello(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
