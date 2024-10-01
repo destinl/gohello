@@ -4,9 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"gohello/utils"
 	"io/ioutil"
+	"math/rand"
 	"net/http"
+	"sync"
 	"time"
 )
 
@@ -58,7 +59,55 @@ func Get(url string) ([]byte, error) {
 	return resBody, nil
 }
 
+func goroutine_channel() {
+	out := make(chan int)
+	wg := sync.WaitGroup{}
+	wg.Add(2)
+	go func() {
+		defer wg.Done()
+		for i := 0; i < 5; i++ {
+			out <- rand.Intn(5)
+		}
+		close(out)
+	}()
+	go func() {
+		defer wg.Done()
+		for i := range out {
+			fmt.Println(i)
+		}
+	}()
+	wg.Wait()
+}
+
+func goroutine_channel_2() {
+	random := make(chan int)
+	done := make(chan bool)
+
+	go func() {
+		for {
+			num, ok := <-random
+			if ok {
+				fmt.Println(num)
+			} else {
+				done <- true
+			}
+		}
+	}()
+
+	go func() {
+		defer close(random)
+		for i := 0; i < 5; i++ {
+			random <- rand.Intn(5)
+		}
+	}()
+
+	<-done
+	close(done)
+}
 func main() {
+	// goroutine_channel()
+	goroutine_channel_2()
+
 	// for {
 	// 	_, err := Get("http://www.baidu.com/")
 	// 	if err != nil {
@@ -67,7 +116,7 @@ func main() {
 	// 	}
 	// }
 
-	go utils.Foo()
-	fmt.Println("打印4")
-	time.Sleep(1000 * time.Second)
+	// go utils.Foo()
+	// fmt.Println("打印4")
+	// time.Sleep(1000 * time.Second)
 }
