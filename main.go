@@ -152,8 +152,31 @@ func multi_goroutine() {
 
 	time.Sleep(time.Second * 2)
 }
+
+func closures() {
+	funcs := make([]func(), 3)
+	for i := 0; i < 3; i++ {
+		// funcs[i] = func() {
+		// 	fmt.Println(i)
+		// 	// 闭包是一个函数值，它可以访问外部函数的变量，即使外部函数已经返回了。
+		// 	// 这里的i是闭包中捕获的变量，而不是函数参数
+		// 	// 0, 1, 2 (3 3 3就是使用闭包可能的错误情况)
+		// }
+		// 创建局部变量j，在闭包中引用这个局部变量，这样，每个闭包就会捕获不同的变量值
+		j := i
+		funcs[i] = func() {
+			fmt.Println(j)
+		}
+	}
+	for _, f := range funcs {
+		f()
+	}
+}
+
 func main() {
-	multi_goroutine()
+	closures()
+
+	// multi_goroutine()
 
 	// goroutine_channel()
 	// goroutine_channel_2()
