@@ -173,8 +173,24 @@ func closures() {
 	}
 }
 
+func createSlice() []int {
+	//这里的切片会逃逸到堆上，因为它是通过值返回的（它的生命周期超出了函数的执行范围，比函数长）
+	return []int{1, 2, 3}
+}
+
+func createSlice2() *[]int {
+	//这里的切片不会逃逸到堆上，因为它是通过指针返回的
+	s := []int{1, 2, 3}
+	return &s
+}
+
 func main() {
-	closures()
+	s := createSlice()
+	fmt.Println(s)
+	s2 := createSlice2()
+	fmt.Println(*s2)
+
+	// closures()
 
 	// multi_goroutine()
 
