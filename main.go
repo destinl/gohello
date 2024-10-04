@@ -186,7 +186,11 @@ func createSlice2() *[]int {
 }
 
 func main() {
-	utils.TcpScanner()
+	utils.GenerateUUID()
+
+	// utils.Cron()
+
+	// utils.TcpScanner()
 
 	// websocket.Websocket_main()
 
