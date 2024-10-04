@@ -5,7 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"gohello/utils"
+	"gohello/gohello/crawler"
 	"io/ioutil"
 	"math/rand"
 	"net/http"
@@ -186,7 +186,9 @@ func createSlice2() *[]int {
 }
 
 func main() {
-	utils.GenerateUUID()
+	crawler.GetPicture()
+
+	// utils.GenerateUUID()
 
 	// utils.Cron()
 
