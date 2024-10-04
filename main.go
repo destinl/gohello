@@ -5,7 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"gohello/websocket"
+	"gohello/utils"
 	"io/ioutil"
 	"math/rand"
 	"net/http"
@@ -186,7 +186,9 @@ func createSlice2() *[]int {
 }
 
 func main() {
-	websocket.Websocket_main()
+	utils.TcpScanner()
+
+	// websocket.Websocket_main()
 
 	// failed:upgrade error: websocket: the client is not using the websocket protocol: 'upgrade' token not found in 'Connection' header
 	// gohello.StartWebSocketServer()
