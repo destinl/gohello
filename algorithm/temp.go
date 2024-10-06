@@ -1,5 +1,38 @@
 package algorithm
 
+import (
+	"slices"
+	"sort"
+)
+
+func gcdValues(nums []int, queries []int64) []int {
+	mx := slices.Max(nums)
+	cntX := make([]int, mx+1)
+	for _, v := range nums {
+		cntX[v]++
+	}
+
+	cntGcd := make([]int, mx+1)
+	for i := mx; i > 0; i-- {
+		c := 0
+		for j := i; j <= mx; j += i {
+			c += cntX[j]
+			cntGcd[i] -= cntGcd[j]
+		}
+		cntGcd[i] += c * (c - 1) / 2
+	}
+
+	for i := 2; i <= mx; i++ {
+		cntGcd[i] += cntGcd[i-1]
+	}
+
+	res := make([]int, len(queries))
+	for i, q := range queries {
+		res[i] = sort.SearchInts(cntGcd, int(q)+1)
+	}
+	return res
+}
+
 func constructGridLayout(n int, edges [][]int) [][]int {
 	g := make([][]int, n)
 	for _, v := range edges {

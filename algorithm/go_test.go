@@ -5,6 +5,56 @@ import (
 	"testing"
 )
 
+func TestGcdValues(t *testing.T) {
+	tests := []struct {
+		nums     []int
+		queries  []int64
+		expected []int
+	}{
+		{
+			nums:     []int{2, 3, 4},
+			queries:  []int64{0, 2, 2},
+			expected: []int{0, 1, 3},
+		},
+		// {
+		// 	nums:     []int{2, 4, 6},
+		// 	queries:  []int64{1, 5, 10},
+		// 	expected: []int{0, 3, 3},
+		// },
+		// {
+		// 	nums:     []int{5, 10, 15},
+		// 	queries:  []int64{0, 1, 5, 6, 10},
+		// 	expected: []int{0, 0, 1, 1, 2},
+		// },
+		// {
+		// 	nums:     []int{8, 12, 16},
+		// 	queries:  []int64{10, 15, 20},
+		// 	expected: []int{2, 2, 2},
+		// },
+		// {
+		// 	nums:     []int{1},
+		// 	queries:  []int64{1},
+		// 	expected: []int{0},
+		// },
+		// {
+		// 	nums:     []int{},
+		// 	queries:  []int64{1},
+		// 	expected: []int{0},
+		// },
+	}
+
+	for _, tt := range tests {
+		t.Run("Testing gcdValues function", func(t *testing.T) {
+			got := gcdValues(tt.nums, tt.queries)
+			t.Log(got)
+			// for i, v := range got {
+			// 	if v != tt.expected[i] {
+			// 		t.Errorf("For nums: %v, queries: %v; expected %v, got %v", tt.nums, tt.queries, tt.expected, got)
+			// 	}
+			// }
+		})
+	}
+}
 func TestBinarySort(t *testing.T) {
 	TempIntSlice := []int{1, 18, 27}
 	// binaryStrings := []string{"110", "10", "1010", "1"}
