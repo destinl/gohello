@@ -5,7 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"gohello/gohello/goadmin"
+	"gohello/gohello"
 	"io/ioutil"
 	"math/rand"
 	"net/http"
@@ -186,7 +186,30 @@ func createSlice2() *[]int {
 }
 
 func main() {
-	goadmin.Goadmin()
+	m := map[string]gohello.Student{"people": {"zhoujielun"}}
+	student := m["people"]   // 获取副本
+	student.Name = "wuyanzu" // 修改副本的字段
+	m["people"] = student    // 将修改后的值放回 map
+	fmt.Println(m)
+
+	// if gohello.Live() == nil {
+	// 	fmt.Println("AAAAAAA")
+	// } else {
+	// 	fmt.Println("BBBBBBB")
+	// }
+
+	// t := gohello.Teacher{}
+	// t.ShowA()
+
+	// gohello.Func_I()
+
+	// gohello.Pase_student()
+
+	// gohello.Defer_call()
+
+	// gohello.Concurrent()
+
+	// goadmin.Goadmin()
 
 	// crawler.GetPicture()
 
