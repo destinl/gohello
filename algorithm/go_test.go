@@ -12,7 +12,41 @@ import (
 	"sync/atomic"
 	"testing"
 	"time"
+	"unsafe"
 )
+
+type W struct {
+	b int32
+	c int64
+}
+
+// uintptr和unsafe.Pointer的区别:
+// unsafe.Pointer只是单纯的通用指针类型，用于转换不同类型指针，它不可以参与指针运算；
+// 而uintptr是用于指针运算的，GC 不把 uintptr 当指针，也就是说 uintptr 无法持有对象， uintptr 类型的目标会被回收；
+// unsafe.Pointer 可以和 普通指针 进行相互转换；
+// unsafe.Pointer 可以和 uintptr 进行相互转换。
+func TestPointer(t *testing.T) {
+	var w *W = new(W)
+	//这时w的变量打印出来都是默认值0，0
+	fmt.Println(w.b, w.c)
+
+	//现在我们通过指针运算给b变量赋值为10
+	b := unsafe.Pointer(uintptr(unsafe.Pointer(w)) + unsafe.Offsetof(w.b))
+	*((*int)(b)) = 10
+	//此时结果就变成了10，0
+	fmt.Println(w.b, w.c)
+}
+
+// 在 Go 语言中，nil 的通道无论是发送还是接收操作都会永久阻塞
+func TestNilChan(t *testing.T) {
+
+	// var c chan int
+	// c <- 1
+
+	var c chan int
+	num, ok := <-c
+	fmt.Printf("读chan的协程结束, num=%v, ok=%v\n", num, ok)
+}
 
 type Ban struct {
 	visitIPs map[string]time.Time
@@ -122,13 +156,22 @@ func TestSlice(t *testing.T) {
 }
 
 const (
-	a = iota
-	b = iota
+	a = iota //0
+	b = iota //1
 )
 const (
-	name = "menglu"
-	c    = iota
-	d    = iota
+	name = "menglu" //0
+	c    = iota     //1
+	d    = iota     //2
+)
+const (
+	x = iota
+	_
+	y
+	z = "pi"
+	k
+	p = iota
+	q
 )
 
 func TestConstant(t *testing.T) {
@@ -136,6 +179,7 @@ func TestConstant(t *testing.T) {
 	fmt.Println(b)
 	fmt.Println(c)
 	fmt.Println(d)
+	fmt.Println(x, y, z, k, p, q)
 }
 
 // 输出是4，不管有没有resp.Body.Close()，这个内存泄漏问题解决了？（同一域名）
